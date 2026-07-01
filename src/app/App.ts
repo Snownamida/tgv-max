@@ -1,6 +1,7 @@
 import { KOFI_URL } from "@/config";
 import type { TgvmaxRepository } from "@/data/TgvmaxRepository";
 import { frDateTime } from "@/lib/dates";
+import { KofiPanel } from "@/ui/components/KofiPanel";
 import { clear, el } from "@/ui/dom";
 import type { View } from "@/ui/views/View";
 
@@ -12,6 +13,7 @@ import type { View } from "@/ui/views/View";
  */
 export class App {
   private readonly tabs = new Map<string, HTMLElement>();
+  private readonly kofi = new KofiPanel();
 
   constructor(
     private readonly root: HTMLElement,
@@ -37,7 +39,7 @@ export class App {
     }
 
     const freshness = el("div", { class: "freshness" });
-    clear(this.root).append(this.header(nav), freshness, panelsHost);
+    clear(this.root).append(this.header(nav), freshness, panelsHost, this.kofi.element);
 
     window.addEventListener("hashchange", () => this.activate(this.currentId()));
     this.activate(this.currentId());
@@ -76,11 +78,15 @@ export class App {
         ]),
         el("a", {
           class: "btn-kofi",
-          href: KOFI_URL,
+          href: KOFI_URL, // fallback : clic molette / sans JS → page Ko-fi
           target: "_blank",
           rel: "noopener",
-          title: "Soutenir ce projet sur Ko-fi",
+          title: "Soutenir ce projet",
           text: "☕ Soutenir",
+          onclick: (e: Event) => {
+            e.preventDefault(); // clic normal : panneau intégré, on reste sur le site
+            this.kofi.open();
+          },
         }),
       ]),
       nav,

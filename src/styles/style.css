@@ -913,6 +913,61 @@ a {
   font-weight: 700;
 }
 
+/* Modale de don (panneau Ko-fi intégré) */
+.kofi-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 33, 61, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fade 0.15s ease;
+}
+.kofi-overlay.hidden {
+  display: none;
+}
+.kofi-modal {
+  position: relative;
+  background: #f9f9f9;
+  border-radius: 16px;
+  width: min(400px, 94vw);
+  box-shadow: 0 18px 60px rgba(10, 18, 40, 0.45);
+  overflow: hidden;
+}
+.kofi-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(20, 33, 61, 0.65);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+.kofi-close:hover {
+  background: var(--pink);
+}
+.kofi-frame-host iframe {
+  display: block;
+  border: none;
+  width: 100%;
+  height: min(640px, 76vh);
+  background: #f9f9f9;
+}
+.kofi-fallback {
+  margin: 0;
+  padding: 8px 12px 10px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+
 /* ---- Section statique « à propos / FAQ » (indexable, voir index.html) ---- */
 .about {
   margin-top: 26px;

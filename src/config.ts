@@ -15,3 +15,6 @@ export const RAILNET_URL = `${import.meta.env.BASE_URL}railnet.geojson`;
 
 /** Donation page (Ko-fi). */
 export const KOFI_URL = "https://ko-fi.com/snownamida";
+
+/** Ko-fi embeddable panel (official iframe embed, stays on our site). */
+export const KOFI_EMBED_URL = "https://ko-fi.com/snownamida/?hidefeed=true&widget=true&embed=true";
