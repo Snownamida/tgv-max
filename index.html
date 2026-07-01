@@ -3,18 +3,187 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TGV MAX Planner — trouvez vos places MAX</title>
+    <title>TGV MAX Planner — trouvez vos places MAX disponibles</title>
     <meta
       name="description"
-      content="Planifiez vos voyages TGV MAX : calendrier des disponibilités sur 30 jours, destinations du jour, carte du réseau ferré et allers-retours. Données ouvertes SNCF."
+      content="Trouvez les places TGV Max disponibles : calendrier des disponibilités sur 30 jours, destinations du jour, carte du réseau ferré et allers-retours. Gratuit, basé sur les données ouvertes SNCF."
     />
+    <link rel="canonical" href="https://tgv-max.snownamida.top/" />
+
+    <!-- Open Graph / partage -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TGV MAX Planner" />
+    <meta property="og:title" content="TGV MAX Planner — trouvez vos places MAX disponibles" />
+    <meta
+      property="og:description"
+      content="Calendrier 30 jours des places TGV Max, destinations du jour, carte du réseau ferré, allers-retours journée & week-end. Gratuit et open source."
+    />
+    <meta property="og:url" content="https://tgv-max.snownamida.top/" />
+    <meta property="og:locale" content="fr_FR" />
+
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚄</text></svg>"
     />
+
+    <!-- Données structurées : application + FAQ (le texte reflète la section visible ci-dessous) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "name": "TGV MAX Planner",
+            "url": "https://tgv-max.snownamida.top/",
+            "applicationCategory": "TravelApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+            "description": "Planificateur de voyages TGV Max : calendrier des places MAX disponibles sur 30 jours, destinations du jour, carte du réseau ferré et allers-retours."
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "C'est quoi une « place MAX » ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sur chaque TGV INOUI et Intercités éligible, la SNCF ouvre un quota limité de places réservables à 0 € pour les abonnés MAX JEUNE (16-27 ans) et MAX SENIOR (60 ans et plus). Quand le quota est épuisé, le train reste accessible en tarif normal. Ce site montre où il reste des places MAX."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Les disponibilités affichées sont-elles en temps réel ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Non. La SNCF publie un export une fois par jour, tôt le matin, sur une fenêtre glissante d'environ 30 jours. Une place affichée disponible peut donc avoir été réservée entre-temps. L'heure du dernier export est affichée en haut de la page ; confirmez toujours sur SNCF Connect."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Pourquoi je ne trouve aucune place MAX sur mon trajet ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Les quotas sont faibles et partent très vite, surtout les vendredis, dimanches et pendant les vacances. Réservez dès l'ouverture des ventes (environ 30 jours avant), visez les heures creuses et le milieu de semaine, et utilisez le calendrier du site pour repérer d'un coup d'œil les jours où il reste des places."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Comment réserver une fois la place trouvée ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "La réservation se fait sur SNCF Connect (ou l'application), avec votre abonnement TGV Max. Ce site est un moteur de recherche : il ne réserve rien lui-même."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Ce site est-il un service officiel de la SNCF ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Non. C'est un projet indépendant et open source, construit sur le jeu de données ouvert « tgvmax » publié par la SNCF (licence ODbL). Il n'a aucun lien avec la SNCF."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Quels trains sont couverts ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Les TGV INOUI et Intercités éligibles TGV Max en France, ainsi que les liaisons internationales présentes dans les données SNCF (Allemagne, Espagne, Italie, Belgique, Luxembourg, Suisse)."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>
+
+    <!-- Section statique (indexable sans JavaScript) : présentation + FAQ -->
+    <section class="about wrap">
+      <h2>Trouver une place TGV Max, sans se battre avec SNCF Connect</h2>
+      <p>
+        Avec un abonnement <strong>MAX JEUNE</strong> ou <strong>MAX SENIOR</strong>, les voyages
+        sont illimités — mais chaque train n'ouvre qu'un petit quota de places à 0 €, vite parti.
+        SNCF Connect ne permet de chercher qu'une date et un trajet à la fois ; ce site retourne le
+        problème et exploite votre vrai atout : <strong>la flexibilité</strong>.
+      </p>
+      <ul>
+        <li>📅 <strong>Calendrier</strong> — les places MAX d'un trajet sur 30 jours, en un coup d'œil ;</li>
+        <li>🧭 <strong>Où partir ?</strong> — toutes les destinations disponibles un jour donné, triables par popularité ;</li>
+        <li>🗺️ <strong>Carte</strong> — les destinations posées sur le vrai réseau ferré, LGV mises en évidence ;</li>
+        <li>🔁 <strong>Aller-retour</strong> — journées et week-ends jouables avec des places dans les deux sens.</li>
+      </ul>
+
+      <h2 id="faq">Questions fréquentes</h2>
+      <details>
+        <summary>C'est quoi une « place MAX » ?</summary>
+        <p>
+          Sur chaque TGV INOUI et Intercités éligible, la SNCF ouvre un quota limité de places
+          réservables à 0 € pour les abonnés MAX JEUNE (16-27 ans) et MAX SENIOR (60 ans et plus).
+          Quand le quota est épuisé, le train reste accessible en tarif normal. Ce site montre où il
+          reste des places MAX.
+        </p>
+      </details>
+      <details>
+        <summary>Les disponibilités affichées sont-elles en temps réel ?</summary>
+        <p>
+          Non. La SNCF publie un export une fois par jour, tôt le matin, sur une fenêtre glissante
+          d'environ 30 jours. Une place affichée disponible peut donc avoir été réservée
+          entre-temps. L'heure du dernier export est affichée en haut de la page ; confirmez
+          toujours sur SNCF Connect.
+        </p>
+      </details>
+      <details>
+        <summary>Pourquoi je ne trouve aucune place MAX sur mon trajet ?</summary>
+        <p>
+          Les quotas sont faibles et partent très vite, surtout les vendredis, dimanches et pendant
+          les vacances. Réservez dès l'ouverture des ventes (environ 30 jours avant), visez les
+          heures creuses et le milieu de semaine, et utilisez le calendrier du site pour repérer
+          d'un coup d'œil les jours où il reste des places.
+        </p>
+      </details>
+      <details>
+        <summary>Comment réserver une fois la place trouvée ?</summary>
+        <p>
+          La réservation se fait sur SNCF Connect (ou l'application), avec votre abonnement TGV
+          Max. Ce site est un moteur de recherche : il ne réserve rien lui-même.
+        </p>
+      </details>
+      <details>
+        <summary>Ce site est-il un service officiel de la SNCF ?</summary>
+        <p>
+          Non. C'est un projet indépendant et
+          <a href="https://github.com/Snownamida/tgv-max" target="_blank" rel="noopener">open source</a>,
+          construit sur le jeu de données ouvert « tgvmax » publié par la SNCF (licence ODbL). Il
+          n'a aucun lien avec la SNCF.
+        </p>
+      </details>
+      <details>
+        <summary>Quels trains sont couverts ?</summary>
+        <p>
+          Les TGV INOUI et Intercités éligibles TGV Max en France, ainsi que les liaisons
+          internationales présentes dans les données SNCF (Allemagne, Espagne, Italie, Belgique,
+          Luxembourg, Suisse).
+        </p>
+      </details>
+    </section>
+
+    <footer class="foot">
+      <p>
+        Données :
+        <a href="https://ressources.data.sncf.com/explore/dataset/tgvmax/" target="_blank" rel="noopener"
+          >jeu de données ouvert SNCF « tgvmax »</a
+        >, mis à jour chaque matin (fenêtre glissante ~30 jours). « Place MAX » = un billet à 0 €
+        réservable pour les abonnés MAX JEUNE / MAX SENIOR.
+      </p>
+      <p class="foot-sub">
+        Projet non officiel, sans lien avec la SNCF. La disponibilité affichée reflète le dernier
+        export et peut évoluer d'ici votre réservation.
+      </p>
+    </footer>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

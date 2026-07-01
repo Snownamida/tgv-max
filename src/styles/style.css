@@ -883,6 +883,50 @@ a {
   }
 }
 
+/* ---- Section statique « à propos / FAQ » (indexable, voir index.html) ---- */
+.about {
+  margin-top: 26px;
+  padding-top: 4px;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+.about h2 {
+  font-size: 18px;
+  margin: 22px 0 10px;
+}
+.about p,
+.about ul {
+  margin: 8px 0;
+  max-width: 78ch;
+}
+.about ul {
+  padding-left: 22px;
+}
+.about li {
+  margin: 4px 0;
+}
+.about details {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin: 8px 0;
+  box-shadow: var(--shadow);
+}
+.about summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.about details[open] summary {
+  color: var(--violet-d);
+}
+.about details p {
+  margin: 8px 0 2px;
+  color: var(--muted);
+}
+
 /* ---- Pied de page ---- */
 .foot {
   max-width: 1100px;

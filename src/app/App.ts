@@ -1,4 +1,3 @@
-import { TGVMAX_DATASET_PAGE } from "@/config";
 import type { TgvmaxRepository } from "@/data/TgvmaxRepository";
 import { frDateTime } from "@/lib/dates";
 import { clear, el } from "@/ui/dom";
@@ -7,7 +6,8 @@ import type { View } from "@/ui/views/View";
 /**
  * Application shell: builds the layout, wires hash-based tab routing, and shows
  * the data-freshness banner. Views are injected — App knows nothing about them
- * beyond the {@link View} contract.
+ * beyond the {@link View} contract. The footer and the SEO/FAQ section live as
+ * static HTML in `index.html` so search engines index them without JS.
  */
 export class App {
   private readonly tabs = new Map<string, HTMLElement>();
@@ -36,7 +36,7 @@ export class App {
     }
 
     const freshness = el("div", { class: "freshness" });
-    clear(this.root).append(this.header(nav), freshness, panelsHost, this.footer());
+    clear(this.root).append(this.header(nav), freshness, panelsHost);
 
     window.addEventListener("hashchange", () => this.activate(this.currentId()));
     this.activate(this.currentId());
@@ -75,18 +75,6 @@ export class App {
         ]),
       ]),
       nav,
-    ]);
-  }
-
-  private footer(): HTMLElement {
-    return el("footer", { class: "foot" }, [
-      el("p", {
-        html: `Données : <a href="${TGVMAX_DATASET_PAGE}" target="_blank" rel="noopener">jeu de données ouvert SNCF « tgvmax »</a>, mis à jour chaque matin (fenêtre glissante ~30 jours). « Place MAX » = un billet à 0 € réservable pour les abonnés MAX JEUNE / MAX SENIOR.`,
-      }),
-      el("p", {
-        class: "foot-sub",
-        text: "Projet non officiel, sans lien avec la SNCF. La disponibilité affichée reflète le dernier export et peut évoluer d'ici votre réservation.",
-      }),
     ]);
   }
 
