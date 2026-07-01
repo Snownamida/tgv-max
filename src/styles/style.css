@@ -1,0 +1,936 @@
+/* ============ TGV MAX Planner — feuille de style ============ */
+:root {
+  /* Thème « bleu nuit ferroviaire ». Variables historiquement nommées --violet*
+     conservées pour ne pas casser les références ; les valeurs sont bleu nuit. */
+  --violet: #1c3d63; /* couleur principale — bleu nuit */
+  --violet-d: #14213d; /* bleu nuit foncé (dégradés, survol) */
+  --violet-l: #e2e9f3; /* bleu très clair (sélections, badges) */
+  --pink: #e5007d; /* accent — rose SNCF */
+  --ink: #14202e;
+  --muted: #667089;
+  --line: #e2e7f0;
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --ok: #1a8a3f;
+  --ko: #d23b57;
+  --radius: 14px;
+  --shadow: 0 2px 10px rgba(20, 33, 61, 0.08);
+  --shadow-h: 0 6px 22px rgba(20, 33, 61, 0.16);
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family:
+    "Inter",
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+a {
+  color: var(--violet-d);
+}
+
+/* ---- Barre supérieure ---- */
+.topbar {
+  background: linear-gradient(120deg, var(--violet-d), var(--violet) 55%, #24507d);
+  color: #fff;
+  padding: 18px 22px 0;
+  box-shadow: 0 4px 20px rgba(60, 20, 120, 0.25);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.logo {
+  font-size: 40px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+.brand h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.brand h1 .max {
+  background: var(--pink);
+  color: #fff;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-style: italic;
+  box-shadow: 0 2px 6px rgba(229, 0, 125, 0.4);
+}
+.tagline {
+  margin: 3px 0 0;
+  font-size: 13.5px;
+  opacity: 0.9;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  max-width: 1100px;
+  margin: 16px auto 0;
+  flex-wrap: wrap;
+}
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  padding: 9px 15px;
+  border-radius: 12px 12px 0 0;
+  transition: background 0.15s;
+  font: inherit;
+}
+.tab:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+.tab.active {
+  background: var(--bg);
+  color: var(--ink);
+}
+.tab-emoji {
+  font-size: 20px;
+}
+.tab-txt {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  text-align: left;
+}
+.tab-txt b {
+  font-size: 14px;
+}
+.tab-txt small {
+  font-size: 11px;
+  opacity: 0.75;
+}
+.tab.active .tab-txt small {
+  color: var(--muted);
+}
+
+/* ---- Conteneur ---- */
+/* Bandeau de fraîcheur des données (données non temps réel) */
+.freshness {
+  background: #fff8e6;
+  border-bottom: 1px solid #f2e4bd;
+  color: #6b5200;
+  font-size: 12.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 22px;
+  text-align: center;
+}
+.freshness:empty {
+  display: none;
+}
+.freshness b {
+  color: #5a3d00;
+}
+.fr-ico {
+  font-size: 14px;
+  flex: 0 0 auto;
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 22px;
+}
+.panel {
+  display: none;
+}
+.panel.active {
+  display: block;
+  animation: fade 0.2s ease;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- Contrôles ---- */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  background: var(--card);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+}
+.f {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1 1 190px;
+  min-width: 150px;
+}
+.f-lab {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.date-input,
+.sel {
+  font: inherit;
+  padding: 10px 11px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  height: 42px;
+}
+.date-input:focus,
+.sel:focus {
+  outline: none;
+  border-color: var(--violet);
+}
+.btn-primary {
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  background: var(--violet);
+  border: 0;
+  padding: 0 20px;
+  height: 42px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(20, 33, 61, 0.28);
+  transition:
+    transform 0.1s,
+    background 0.15s;
+  flex: 0 0 auto;
+}
+.btn-primary:hover {
+  background: var(--violet-d);
+}
+.btn-primary:active {
+  transform: translateY(1px);
+}
+.swap {
+  align-self: flex-end;
+  height: 42px;
+  width: 42px;
+  flex: 0 0 auto;
+  font-size: 18px;
+  cursor: pointer;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  border-radius: 10px;
+  color: var(--violet);
+}
+.swap:hover {
+  background: var(--violet-l);
+}
+
+/* ---- Sélecteur de gare ---- */
+.picker {
+  position: relative;
+}
+.picker-input {
+  width: 100%;
+  font: inherit;
+  padding: 10px 11px;
+  height: 42px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.picker-input:focus {
+  outline: none;
+  border-color: var(--violet);
+  box-shadow: 0 0 0 3px var(--violet-l);
+}
+.picker-menu {
+  position: absolute;
+  z-index: 50;
+  top: 46px;
+  left: 0;
+  right: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow-h);
+  padding: 5px;
+}
+.picker-menu.hidden {
+  display: none;
+}
+.picker-opt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.picker-opt.active {
+  background: var(--violet-l);
+}
+.po-flag {
+  opacity: 0.8;
+}
+
+/* ---- Puces (chips) ---- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 0;
+}
+.chip {
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  transition: all 0.12s;
+}
+.chip:hover {
+  border-color: var(--violet);
+  color: var(--violet-d);
+}
+.chip-accent {
+  border-color: var(--pink);
+  color: var(--pink);
+  font-weight: 600;
+}
+.chip-accent:hover {
+  background: var(--pink);
+  color: #fff;
+}
+
+/* ---- Résumé ---- */
+.summary {
+  margin: 18px 0 6px;
+}
+.sum-line {
+  font-size: 15px;
+  color: var(--ink);
+}
+.sum-line .ok {
+  color: var(--ok);
+  font-weight: 700;
+}
+.sum-line .ko {
+  color: var(--ko);
+  font-weight: 700;
+}
+.hint {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 6px 0;
+}
+
+/* ---- Légende ---- */
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 6px 0 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.lg-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.lg-sw {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ---- Calendrier / heatmap ---- */
+.cal {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+.cal-head {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.cal-head span {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+.cell {
+  position: relative;
+  aspect-ratio: 1 / 0.82;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 54px;
+}
+.cell.out {
+  opacity: 0.32;
+  background: repeating-linear-gradient(45deg, #fafafa, #fafafa 6px, #f0f0f0 6px, #f0f0f0 12px);
+}
+.cell.has {
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s;
+}
+.cell.has:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-h);
+  z-index: 2;
+}
+.cell.sel {
+  outline: 3px solid var(--violet);
+  outline-offset: 1px;
+}
+.cell-num {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.cell-mon {
+  position: absolute;
+  top: 5px;
+  right: 7px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--violet);
+  text-transform: uppercase;
+}
+.cell-n {
+  align-self: flex-end;
+  font-size: 13px;
+  font-weight: 800;
+}
+/* niveaux de chaleur (partagés avec la légende) */
+.lvl0 {
+  background: #fbfbfd;
+}
+.lvl1 {
+  background: #d9f2e0;
+}
+.lvl1 .cell-n {
+  color: #2f8a4e;
+}
+.lvl2 {
+  background: #a7e2b8;
+}
+.lvl2 .cell-n {
+  color: #1e6e3a;
+}
+.lvl3 {
+  background: #5cc47b;
+}
+.lvl3 .cell-n {
+  color: #12401f;
+}
+.lvl4 {
+  background: #1a9d47;
+}
+.lvl4 .cell-n,
+.lvl4 .cell-num {
+  color: #fff;
+}
+.lvl4 .cell-mon {
+  color: #eafff0;
+}
+
+/* ---- Détail / liste de trains ---- */
+.detail {
+  margin-top: 18px;
+}
+.detail-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.detail-head h3 {
+  margin: 0;
+  font-size: 17px;
+}
+.detail-sub {
+  color: var(--muted);
+  font-size: 13px;
+}
+.train-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.train {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 11px 14px;
+  box-shadow: var(--shadow);
+}
+.train-full {
+  opacity: 0.55;
+}
+.t-time {
+  font-size: 15px;
+}
+.t-time .arrow {
+  color: var(--muted);
+}
+.t-dur {
+  font-size: 13px;
+  color: var(--muted);
+  background: var(--bg);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.t-no {
+  font-size: 12px;
+  color: var(--muted);
+  margin-left: auto;
+}
+.t-od {
+  font-weight: 600;
+}
+.t-full {
+  font-size: 11px;
+  color: var(--ko);
+  font-weight: 700;
+}
+
+/* Badges d'axe */
+.axe {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #eee;
+  color: #555;
+}
+.axe-se {
+  background: #ffe6cc;
+  color: #a35200;
+}
+.axe-atl {
+  background: #d7ecff;
+  color: #0b5aa5;
+}
+.axe-nord {
+  background: #ffd9e2;
+  color: #b01843;
+}
+.axe-est {
+  background: #e3dcff;
+  color: #4c2ba8;
+}
+.axe-ouigo {
+  background: #d9f7f3;
+  color: #0a7d70;
+}
+
+.btn-reserve {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  background: var(--pink);
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 9px;
+  box-shadow: 0 3px 10px rgba(229, 0, 125, 0.3);
+}
+.btn-reserve:hover {
+  filter: brightness(1.06);
+}
+
+/* ---- Où partir ? : grille de destinations ---- */
+.dest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+.dest-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: box-shadow 0.12s;
+}
+.dest-card:hover {
+  box-shadow: var(--shadow-h);
+}
+.dest-card.open {
+  border-color: var(--violet);
+}
+.dc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 15px;
+  cursor: pointer;
+}
+.dc-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.dc-name {
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dc-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  flex: 0 0 auto;
+}
+.dc-badge {
+  background: var(--violet-l);
+  color: var(--violet-d);
+  font-weight: 700;
+  font-size: 12px;
+  padding: 2px 9px;
+  border-radius: 999px;
+}
+.dc-dur {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.dc-freq {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.dc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 0 15px 14px;
+}
+.dc-body.hidden {
+  display: none;
+}
+.dc-body .train {
+  box-shadow: none;
+  background: var(--bg);
+}
+.flash {
+  animation: flash 1.4s ease;
+}
+@keyframes flash {
+  0%,
+  100% {
+    box-shadow: var(--shadow);
+  }
+  30% {
+    box-shadow: 0 0 0 4px var(--pink);
+  }
+}
+
+/* ---- Carte ---- */
+.map-wrap {
+  margin-top: 12px;
+}
+.map {
+  height: 560px;
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  z-index: 1;
+}
+.map.map-sm {
+  height: 320px;
+}
+.map-pin {
+  background: none;
+  border: none;
+}
+.opin {
+  font-size: 26px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+}
+.opin.dpin {
+  font-size: 24px;
+}
+/* Légende du réseau ferré (couleur = vitesse) */
+.rail-legend {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 8px;
+  padding: 8px 10px;
+  box-shadow: var(--shadow);
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.rail-legend b {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.rail-legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rail-legend i {
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+  flex: 0 0 auto;
+}
+.leaflet-control-layers {
+  border-radius: 8px !important;
+  box-shadow: var(--shadow) !important;
+}
+.pop {
+  font-size: 13px;
+  line-height: 1.5;
+}
+.pop a {
+  font-weight: 700;
+}
+
+/* ---- Aller-retour ---- */
+.rt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+.rt-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+}
+.rt-date {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 15.5px;
+}
+.rt-stay {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ok);
+  background: #e5f6ea;
+  padding: 2px 9px;
+  border-radius: 999px;
+}
+.rt-legs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.rt-leg {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 9px 12px;
+  background: var(--bg);
+  border-radius: 10px;
+}
+.rt-tag {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--violet);
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+.rt-tag.tag-ret {
+  background: var(--pink);
+}
+.rt-od {
+  font-weight: 600;
+  font-size: 14px;
+}
+.rt-time {
+  font-size: 14px;
+}
+.rt-time .arrow {
+  color: var(--muted);
+}
+/* week-end : trains détaillés */
+.wk-group {
+  margin-bottom: 10px;
+}
+.wk-lab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0 7px;
+}
+.wk-group .train {
+  background: var(--bg);
+  box-shadow: none;
+  margin-bottom: 6px;
+  padding: 9px 12px;
+}
+.wk-day {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--violet-d);
+  background: var(--violet-l);
+  padding: 3px 9px;
+  border-radius: 6px;
+  min-width: 54px;
+  text-align: center;
+}
+
+/* ---- États ---- */
+.state {
+  text-align: center;
+  padding: 42px 20px;
+  color: var(--muted);
+}
+.state-emoji {
+  font-size: 34px;
+  margin-bottom: 8px;
+}
+.state p {
+  margin: 6px 0 0;
+}
+.spinner {
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 4px;
+  border-radius: 50%;
+  border: 3.5px solid var(--violet-l);
+  border-top-color: var(--violet);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- Pied de page ---- */
+.foot {
+  max-width: 1100px;
+  margin: 20px auto 0;
+  padding: 20px 22px 34px;
+  color: var(--muted);
+  font-size: 12.5px;
+  border-top: 1px solid var(--line);
+}
+.foot p {
+  margin: 4px 0;
+}
+.foot-sub {
+  opacity: 0.8;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  .brand h1 {
+    font-size: 20px;
+  }
+  .tab-txt small {
+    display: none;
+  }
+  .controls {
+    padding: 13px;
+  }
+  .f {
+    flex-basis: 100%;
+  }
+  .btn-primary,
+  .swap {
+    flex: 1 1 auto;
+  }
+  .cal-grid {
+    gap: 5px;
+  }
+  .cell {
+    min-height: 46px;
+    padding: 4px;
+  }
+  .cell-n {
+    font-size: 12px;
+  }
+  .map {
+    height: 420px;
+  }
+  .t-no {
+    margin-left: 0;
+  }
+}
