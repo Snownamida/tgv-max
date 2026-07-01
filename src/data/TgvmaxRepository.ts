@@ -38,7 +38,24 @@ interface DestRangeRow {
 
 /** Domain-level access to TGV MAX availability, built on top of {@link SncfApiClient}. */
 export class TgvmaxRepository {
+  /** Per-date cache of the full day dump (~2 000 rows), used by the journey planner. */
+  private readonly dayCache = new Map<string, Promise<Train[]>>();
+
   constructor(private readonly api: SncfApiClient) {}
+
+  /** Every MAX train of one date, all origins/destinations (memoized). */
+  allTrainsOn(date: string): Promise<Train[]> {
+    let cached = this.dayCache.get(date);
+    if (!cached) {
+      const where = and(filters.onDate(date), filters.maxSeat());
+      cached = this.api
+        .all<RawTgvmaxRecord>(where, { select: TRAIN_FIELDS, orderBy: "heure_depart" }, 4000)
+        .then((rows) => rows.map(toTrain));
+      this.dayCache.set(date, cached);
+      cached.catch(() => this.dayCache.delete(date)); // ne pas mettre en cache un échec
+    }
+    return cached;
+  }
 
   /** MAX trains per day for one O/D (calendar heatmap). */
   async dailyCounts(from: string, to: string): Promise<DailyCounts> {

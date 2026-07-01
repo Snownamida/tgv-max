@@ -18,8 +18,11 @@ est la **flexibilité** (voyages illimités).
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 📅 **Calendrier**   | Carte de chaleur des places MAX sur 30 jours pour un trajet A → B. Clic sur un jour → les trains.                                                                                                                      |
 | 🧭 **Où partir ?**  | Toutes les destinations avec place MAX depuis une gare, à une date (aujourd'hui / demain / week-end / 🎲). Affiche la **fréquentation** de chaque gare ; tri « les plus fréquentées » ou « les plus confidentielles ». |
+| 🔀 **Correspondances** | Quand le direct est complet : itinéraires en **2 à 4 trains** (jusqu'à 3 correspondances), temps de correspondance réglable, **trains de nuit** 🌙 signalés (arrivée J+1). |
 | 🗺️ **Carte**        | Destinations posées sur le **vrai réseau ferré SNCF coloré par vitesse** : les **LGV** ressortent en rose, les lignes classiques en bleu.                                                                              |
 | 🔁 **Aller-retour** | Allers-retours dans la journée (temps min. sur place) ou week-ends, places MAX dans les deux sens, filtres horaires, mini-carte de l'axe.                                                                              |
+
+Recherche rapide au clavier : **⌘K / Ctrl+K** (gare de départ, puis destination optionnelle).
 
 ## Démarrer
 

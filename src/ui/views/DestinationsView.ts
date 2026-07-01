@@ -88,6 +88,12 @@ export class DestinationsView implements View {
     if (!this.loaded) void this.run();
   }
 
+  /** Pre-fill from the command palette. */
+  preset(origin: string): void {
+    this.fromPicker.set(origin);
+    void this.run();
+  }
+
   private setDate(d: Date): void {
     this.dateInput.value = iso(d);
     void this.run();

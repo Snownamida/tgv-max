@@ -69,6 +69,13 @@ export class CalendarView implements View {
     if (!this.grid.hasChildNodes()) void this.run();
   }
 
+  /** Pre-fill from the command palette. */
+  preset(origin: string, destination?: string): void {
+    this.fromPicker.set(origin);
+    if (destination) this.toPicker.set(destination);
+    void this.run();
+  }
+
   private swap(): void {
     const a = this.fromPicker.value;
     const b = this.toPicker.value;

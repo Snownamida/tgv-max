@@ -7,4 +7,6 @@ export interface View {
   readonly element: HTMLElement;
   /** Called every time the view becomes visible (lazy first load, map resize…). */
   activate(): void;
+  /** Optional: pre-fill the view from the command palette (origin, and destination if it takes one). */
+  preset?(origin: string, destination?: string): void;
 }

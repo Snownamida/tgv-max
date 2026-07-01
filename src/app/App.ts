@@ -1,6 +1,8 @@
 import { KOFI_URL } from "@/config";
+import type { StationRepository } from "@/data/StationRepository";
 import type { TgvmaxRepository } from "@/data/TgvmaxRepository";
 import { frDateTime } from "@/lib/dates";
+import { CommandPalette } from "@/ui/components/CommandPalette";
 import { KofiPanel } from "@/ui/components/KofiPanel";
 import { clear, el } from "@/ui/dom";
 import type { View } from "@/ui/views/View";
@@ -14,12 +16,22 @@ import type { View } from "@/ui/views/View";
 export class App {
   private readonly tabs = new Map<string, HTMLElement>();
   private readonly kofi = new KofiPanel();
+  private readonly palette: CommandPalette;
 
   constructor(
     private readonly root: HTMLElement,
     private readonly views: View[],
     private readonly repo: TgvmaxRepository,
-  ) {}
+    stations: StationRepository,
+  ) {
+    this.palette = new CommandPalette(stations, (r) => {
+      // Origine + destination → Calendrier ; origine seule → Où partir ?
+      const target = r.destination ? "calendar" : "destinations";
+      const view = this.views.find((v) => v.id === target);
+      view?.preset?.(r.origin, r.destination);
+      this.navigate(target);
+    });
+  }
 
   mount(): void {
     const nav = el("nav", { class: "tabs" });
@@ -39,9 +51,16 @@ export class App {
     }
 
     const freshness = el("div", { class: "freshness" });
-    clear(this.root).append(this.header(nav), freshness, panelsHost, this.kofi.element);
+    clear(this.root).append(this.header(nav), freshness, panelsHost, this.kofi.element, this.palette.element);
 
     window.addEventListener("hashchange", () => this.activate(this.currentId()));
+    window.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        if (this.palette.isOpen) this.palette.close();
+        else this.palette.open();
+      }
+    });
     this.activate(this.currentId());
     void this.showFreshness(freshness);
   }
@@ -76,6 +95,12 @@ export class App {
             text: "Vos places MAX, enfin lisibles — sur 30 jours, par destination, sur une carte.",
           }),
         ]),
+        el("button", {
+          class: "btn-search",
+          title: "Recherche rapide (⌘K / Ctrl+K)",
+          html: '🔍 <kbd>⌘K</kbd>',
+          onclick: () => this.palette.open(),
+        }),
         el("a", {
           class: "btn-kofi",
           href: KOFI_URL, // fallback : clic molette / sans JS → page Ko-fi
