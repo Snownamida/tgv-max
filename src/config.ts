@@ -12,3 +12,6 @@ export const SNCF_CONNECT_SEARCH = "https://www.sncf-connect.com/app/home/search
 
 /** Simplified rail-network GeoJSON, served from `public/`. */
 export const RAILNET_URL = `${import.meta.env.BASE_URL}railnet.geojson`;
+
+/** Donation page (Ko-fi). */
+export const KOFI_URL = "https://ko-fi.com/snownamida";

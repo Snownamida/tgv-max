@@ -1,3 +1,4 @@
+import { KOFI_URL } from "@/config";
 import type { TgvmaxRepository } from "@/data/TgvmaxRepository";
 import { frDateTime } from "@/lib/dates";
 import { clear, el } from "@/ui/dom";
@@ -73,6 +74,14 @@ export class App {
             text: "Vos places MAX, enfin lisibles — sur 30 jours, par destination, sur une carte.",
           }),
         ]),
+        el("a", {
+          class: "btn-kofi",
+          href: KOFI_URL,
+          target: "_blank",
+          rel: "noopener",
+          title: "Soutenir ce projet sur Ko-fi",
+          text: "☕ Soutenir",
+        }),
       ]),
       nav,
     ]);

@@ -883,6 +883,36 @@ a {
   }
 }
 
+/* ---- Bouton de soutien (Ko-fi) ---- */
+.btn-kofi {
+  margin-left: auto;
+  align-self: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+.btn-kofi:hover {
+  background: var(--pink);
+  border-color: var(--pink);
+}
+.support-line {
+  margin-top: 18px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+.support-line a {
+  font-weight: 700;
+}
+
 /* ---- Section statique « à propos / FAQ » (indexable, voir index.html) ---- */
 .about {
   margin-top: 26px;
@@ -945,6 +975,19 @@ a {
 
 /* ---- Responsive ---- */
 @media (max-width: 640px) {
+  .topbar {
+    position: relative;
+  }
+  .btn-kofi {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .brand {
+    padding-right: 92px;
+  }
   .brand h1 {
     font-size: 20px;
   }
