@@ -1,3 +1,5 @@
+**Français** | [English](README.en.md) | [中文](README.zh-CN.md)
+
 # 🚄 TGV MAX Planner
 
 Un site pour **planifier ses voyages avec un abonnement TGV MAX**, construit sur les
