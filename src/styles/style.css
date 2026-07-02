@@ -436,7 +436,7 @@ a {
   box-shadow: var(--shadow-h);
   z-index: 2;
 }
-.cell.sel {
+.cell.selected {
   outline: 3px solid var(--violet);
   outline-offset: 1px;
 }

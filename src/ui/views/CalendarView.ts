@@ -168,8 +168,9 @@ export class CalendarView implements View {
   }
 
   private async showDay(from: string, to: string, date: string, cell: HTMLElement): Promise<void> {
-    this.grid.querySelectorAll(".cell.sel").forEach((c) => c.classList.remove("sel"));
-    cell.classList.add("sel");
+    // NB : ne pas réutiliser la classe "sel" (déjà prise par les <select> du thème).
+    this.grid.querySelectorAll(".cell.selected").forEach((c) => c.classList.remove("selected"));
+    cell.classList.add("selected");
     loading(this.detail, `Trajets du ${frDate(date)}…`);
     try {
       const list = await this.repo.trains(from, to, date);
